@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Godot Wild Jam 34"
-run/main_scene="res://src/PlayerMoveCam.tscn"
+run/main_scene="res://src/TestStuff/PlayerMoveCam.tscn"
 config/icon="res://icon.png"
 
 [input]

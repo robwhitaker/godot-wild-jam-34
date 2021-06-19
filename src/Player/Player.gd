@@ -20,6 +20,7 @@ var shooting := false
 var shoot_cooldown := 0.0
 
 var reticle_z := DEFAULT_RETICLE_Z
+var reticle_target : Spatial = null
 
 onready var vis_notif_left := $VisibilityNotifiers/Left as VisibilityNotifier
 onready var vis_notif_right := $VisibilityNotifiers/Right as VisibilityNotifier
@@ -85,6 +86,20 @@ func _physics_process(_delta : float) -> void:
     velocity = move_and_slide(velocity)
 
 func _process(delta):
+    var reticle_pos := reticle.get_position() + reticle.get_size()/2
+    var ray_from := camera.project_ray_origin(reticle_pos)
+    var ray_to := ray_from + camera.project_ray_normal(reticle_pos) * 1000
+    var space_state := get_world().direct_space_state
+    var collision := space_state.intersect_ray(ray_from, ray_to, [self])
+    if !collision.empty() && collision.collider.is_in_group("Enemy"):
+        reticle_z = collision.collider.global_transform.origin.z
+        reticle.set_modulate(Color.crimson)
+        reticle_target = collision.collider
+    else:
+        reticle_z = DEFAULT_RETICLE_Z
+        reticle.set_modulate(Color.white)
+        reticle_target = null
+
     if shoot_cooldown - delta > 0:
         shoot_cooldown -= delta
     elif shooting:
@@ -93,7 +108,9 @@ func _process(delta):
 
         # Spawn a projectile
         var projectile := preload("res://src/Projectile/Projectile.tscn").instance()
-        projectile.velocity = direction_to_reticle * 100
+        projectile.direction = direction_to_reticle
+        projectile.speed = 100.0
+        projectile.tracking_target = reticle_target
         projectile.global_transform = projectile_spawn.global_transform
         owner.add_child(projectile)
 
@@ -151,7 +168,6 @@ func _input(event):
     if event is InputEventMouseMotion:
         reticle.set_position(reticle.get_position() + event.relative*RETICLE_SPEED_MOD)
 
-func _unhandled_input(event):
     if event.is_action_pressed("Shoot"):
         shooting = true
     elif event.is_action_released("Shoot"):
