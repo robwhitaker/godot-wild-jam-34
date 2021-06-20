@@ -33,6 +33,7 @@ Shoot={
 3d_physics/layer_4="Asteroid"
 3d_physics/layer_5="Cannonball"
 3d_physics/layer_6="PlayerHurtbox"
+3d_physics/layer_7="Carrot"
 
 [physics]
 

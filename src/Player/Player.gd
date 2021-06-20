@@ -35,6 +35,7 @@ onready var vis_notif_top := $VisibilityNotifiers/Top as VisibilityNotifier
 onready var vis_notif_bottom := $VisibilityNotifiers/Bottom as VisibilityNotifier
 
 onready var hurtbox := $Hurtbox as Area
+onready var carrot_catcher := $CarrotCatcher as Area
 
 onready var ship_front := $Markers/ShipFront as Spatial
 onready var projectile_spawn_left := $Markers/ProjectileSpawnLeft
@@ -66,6 +67,7 @@ func _ready() -> void:
     _e = vis_notif_bottom.connect("camera_entered", self, "_camera_entered_bottom")
 
     _e = hurtbox.connect("body_entered", self, "_body_entered_hurtbox")
+    _e = carrot_catcher.connect("area_entered", self, "_carrot_entered")
 
     # Reset things that can get screwed up in the editor by
     # animation players
@@ -212,6 +214,10 @@ func _camera_exited_bottom(_camera : Camera) -> void:
 func _body_entered_hurtbox(body : Node) -> void:
     if body.is_in_group("Enemy") || body.is_in_group("Asteroid"):
         apply_damage(1.0)
+
+func _carrot_entered(carrot : Area) -> void:
+    Utils.emit_signal("got_carrot")
+    carrot.get_parent().queue_free()
 
 # Event handlers
 

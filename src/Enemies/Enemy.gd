@@ -5,6 +5,7 @@ const MAX_ATTACK_DISTANCE := 75.0
 
 export var enemy_hp := 3.0
 export var attack_cooldown := 0.1
+export var carrot_drop := 3
 
 var cooldown := 0.0
 
@@ -45,6 +46,20 @@ func apply_damage(dmg : float) -> void:
         explosion.global_transform = global_transform
         explosion.emitting = true
         root.add_child(explosion)
+
+        _spawn_carrots(carrot_drop)
+
         queue_free()
     else:
         animation_player.play("Shake")
+
+func _spawn_carrots(amt : int) -> void:
+    while amt > 0:
+        var direction := Vector3.ZERO
+        direction.x = rand_range(-1, 1)
+        direction.y = rand_range(-1, 1)
+        var carrot := preload("res://src/Carrot/Carrot.tscn").instance() as Spatial
+        carrot.global_transform = global_transform
+        carrot.velocity = direction * 30
+        Utils.get_scene_root().add_child(carrot)
+        amt -= 1

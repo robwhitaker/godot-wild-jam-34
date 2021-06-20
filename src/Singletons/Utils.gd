@@ -1,6 +1,7 @@
 extends Node
 
 signal player_hp_changed(max_hp, old_hp, new_hp)
+signal got_carrot
 
 var player : KinematicBody setget set_player, get_player
 
