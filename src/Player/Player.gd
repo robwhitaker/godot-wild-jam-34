@@ -3,7 +3,7 @@ extends KinematicBody
 const MAX_SPEED := 40.0
 const ROTATION_DEGREES := 60.0
 
-const SHOOT_DELAY := 0.1
+const SHOOT_DELAY := 0.25
 
 const DEFAULT_RETICLE_Z := -75.0
 const RETICLE_SPEED_MOD := 0.35
@@ -22,14 +22,23 @@ var shoot_cooldown := 0.0
 var reticle_z := DEFAULT_RETICLE_Z
 var reticle_target : Spatial = null
 
+var fire_next := RIGHT_CANNON
+
 onready var vis_notif_left := $VisibilityNotifiers/Left as VisibilityNotifier
 onready var vis_notif_right := $VisibilityNotifiers/Right as VisibilityNotifier
 onready var vis_notif_top := $VisibilityNotifiers/Top as VisibilityNotifier
 onready var vis_notif_bottom := $VisibilityNotifiers/Bottom as VisibilityNotifier
 
+onready var ship_front := $Markers/ShipFront as Spatial
+onready var projectile_spawn_left := $Markers/ProjectileSpawnLeft
+onready var projectile_spawn_right := $Markers/ProjectileSpawnRight
 onready var reticle := $Reticle as TextureRect
-onready var projectile_spawn := $ProjectileSpawn as Spatial
 onready var camera := get_viewport().get_camera()
+
+enum {
+    RIGHT_CANNON,
+    LEFT_CANNON
+}
 
 func _ready() -> void:
     var _e
@@ -53,7 +62,7 @@ func _ready() -> void:
 
 func _physics_process(_delta : float) -> void:
     # Get the vector from the ship to the cursor
-    var direction_to_reticle := _get_vec_to_reticle(projectile_spawn)
+    var direction_to_reticle := _get_vec_to_reticle(ship_front)
 
     # Point the ship toward the cursor
     set_rotation_degrees(Vector3(
@@ -103,11 +112,29 @@ func _process(delta):
     if shoot_cooldown - delta > 0:
         shoot_cooldown -= delta
     elif shooting:
+        # Choose which cannon to shoot from
+        var projectile_spawn : Spatial
+        if fire_next == LEFT_CANNON:
+            projectile_spawn = projectile_spawn_left
+            fire_next = RIGHT_CANNON
+        else:
+            projectile_spawn = projectile_spawn_right
+            fire_next = LEFT_CANNON
+
         # Get the direction to the reticle
         var direction_to_reticle := _get_vec_to_reticle(projectile_spawn)
 
+        # Play the firing animation
+        get_node("ship/AnimationPlayer").play("Fire")
+
+        # Spawn a firing particle effect
+        var explosion : Particles = preload("res://src/Explosion/SmallExplosion.tscn").instance()
+        explosion.global_transform.origin = Vector3.ZERO
+        explosion.emitting = true
+        projectile_spawn.add_child(explosion)
+
         # Spawn a projectile
-        var projectile := preload("res://src/Projectile/Projectile.tscn").instance()
+        var projectile := preload("res://src/Projectile/Cannonball.tscn").instance()
         projectile.direction = direction_to_reticle
         projectile.speed = 100.0
         projectile.tracking_target = reticle_target

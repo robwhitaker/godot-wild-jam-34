@@ -9,7 +9,7 @@ var direction := Vector3.ZERO
 var lifetime := 0.1
 
 func _physics_process(delta):
-    if tracking_target != null:
+    if tracking_target != null && is_instance_valid(tracking_target):
         direction = global_transform.origin.direction_to(
             tracking_target.global_transform.origin
         )
@@ -30,8 +30,14 @@ func _on_VisibilityNotifier_camera_entered(_camera : Camera) -> void:
 func _on_VisibilityNotifier_camera_exited(_camera : Camera) -> void:
     _destroy()
 
-func _handle_collision(collision_dict : KinematicCollision) -> void:
-    print(collision_dict)
+func _handle_collision(collision : KinematicCollision) -> void:
+    if is_instance_valid(collision.collider) && collision.collider.has_method("apply_damage"):
+        collision.collider.apply_damage(1)
+        var root : Spatial = Utils.get_scene_root() as Spatial
+        var explosion : Particles = preload("res://src/Explosion/SmallExplosion.tscn").instance()
+        explosion.global_transform = global_transform
+        explosion.emitting = true
+        root.add_child(explosion)
     _destroy()
 
 func _destroy():

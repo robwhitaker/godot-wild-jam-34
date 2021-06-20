@@ -14,6 +14,10 @@ config/name="Godot Wild Jam 34"
 run/main_scene="res://src/TestStuff/PlayerMoveCam.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Utils="*res://src/Singletons/Utils.gd"
+
 [input]
 
 Shoot={
@@ -21,6 +25,13 @@ Shoot={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Enemy"
+3d_physics/layer_4="Asteroid"
+3d_physics/layer_5="Cannonball"
 
 [physics]
 

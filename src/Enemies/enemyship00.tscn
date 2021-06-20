@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Blender Imports/Material.material" type="Material" id=1]
+[ext_resource path="res://src/Enemies/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube"
@@ -19,9 +20,28 @@ surfaces/0 = {
 
 [sub_resource type="BoxShape" id=2]
 
+[sub_resource type="Animation" id=3]
+resource_name = "Shake"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 3,
+"values": [ Vector3( 0, 0, -10 ), Vector3( 0, 0, 10 ), Vector3( 0, 0, -10 ), Vector3( 0, 0, 10 ), Vector3( 0, 0, 0 ) ]
+}
+
 [node name="enemyship00" type="KinematicBody" groups=[
 "Enemy",
 ]]
+collision_layer = 4
+collision_mask = 12
+script = ExtResource( 2 )
 
 [node name="Cube" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -30,3 +50,6 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 2.08057, 0, 0, 0, 1, 0, 0, 0, -3.02346, 0, 0, 0 )
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Shake = SubResource( 3 )
