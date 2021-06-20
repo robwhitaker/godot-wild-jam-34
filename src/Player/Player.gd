@@ -127,7 +127,7 @@ func _process(delta):
     var collision := space_state.intersect_ray(ray_from, ray_to, [self])
     if !collision.empty() && collision.collider.is_in_group("Enemy"):
         reticle_z = collision.collider.global_transform.origin.z
-        reticle.set_modulate(Color.crimson)
+        reticle.set_modulate(Color(1,0,0,1))
         reticle_target = collision.collider
     else:
         reticle_z = DEFAULT_RETICLE_Z
