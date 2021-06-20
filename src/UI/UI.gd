@@ -4,6 +4,8 @@ onready var carrot_count := $MarginContainer/HBoxContainer/RichTextLabel
 onready var hp_bar := $MarginContainer2/TextureProgress as TextureProgress
 onready var hp_bar_tween := hp_bar.get_node("Tween") as Tween
 
+var next_scene_path = "res://src/UI/GameOver.tscn";
+
 var carrots := 0.0
 
 func _ready():
@@ -23,6 +25,10 @@ func _on_player_hp_change(max_hp : float, _old_hp : float, new_hp : float):
         Tween.EASE_IN_OUT
     )
     hp_bar_tween.start()
+    if (new_hp <= 0):
+        yield(get_tree().create_timer(3),"timeout")
+        get_tree().change_scene(next_scene_path)
+    
 
 func _player_got_carrot() -> void:
     carrots += 1

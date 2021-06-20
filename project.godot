@@ -11,12 +11,16 @@ config_version=4
 [application]
 
 config/name="Godot Wild Jam 34"
-run/main_scene="res://src/TestStuff/PlayerMoveCam.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://src/UI/TitleScreen.tscn"
+config/icon="res://src/UI/piratebunny.png"
 
 [autoload]
 
 Utils="*res://src/Singletons/Utils.gd"
+
+[display]
+
+window/stretch/aspect="keep"
 
 [input]
 

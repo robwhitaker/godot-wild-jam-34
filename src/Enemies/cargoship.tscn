@@ -118,7 +118,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 3,
-"values": [ Vector3( 0, 0, -10 ), Vector3( 0, 0, 10 ), Vector3( 0, 0, -10 ), Vector3( 0, 0, 10 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, -180, -10 ), Vector3( 0, -180, 10 ), Vector3( 0, -180, -10 ), Vector3( 0, -180, 10 ), Vector3( 0, -180, 0 ) ]
 }
 
 [node name="cargoship" type="KinematicBody" groups=[

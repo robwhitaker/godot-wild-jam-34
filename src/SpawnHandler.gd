@@ -13,12 +13,9 @@ var currentWave = 0
 var currentWaveNode
 const MAXWAVE = 3
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
     spawnWave(currentWave)
-
 
 func spawnWave(waveNum):
     currentWaveNode = Waves[waveNum].instance();
