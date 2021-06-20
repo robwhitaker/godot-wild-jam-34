@@ -70,6 +70,8 @@ func _ready() -> void:
         camera.unproject_position(global_transform.origin) - reticle.get_size()/2
     )
 
+    Utils.set_player(self)
+
 func _physics_process(_delta : float) -> void:
     # Get the vector from the ship to the cursor
     var direction_to_reticle := _get_vec_to_reticle(ship_front)
@@ -199,8 +201,9 @@ func _camera_entered_bottom(_camera : Camera) -> void:
 func _camera_exited_bottom(_camera : Camera) -> void:
     move_bottom_mod = 0.0
 
-func _body_entered_hurtbox(_body : Node) -> void:
-    apply_damage(1.0)
+func _body_entered_hurtbox(body : Node) -> void:
+    if body.is_in_group("Enemy") || body.is_in_group("Asteroid"):
+        apply_damage(1.0)
 
 # Event handlers
 

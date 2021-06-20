@@ -53,3 +53,8 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Shake = SubResource( 3 )
+
+[node name="Markers" type="Spatial" parent="."]
+
+[node name="Snoot" type="Spatial" parent="Markers"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.36173 )
