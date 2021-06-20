@@ -33,11 +33,11 @@ func _on_VisibilityNotifier_camera_exited(_camera : Camera) -> void:
 func _handle_collision(collision : KinematicCollision) -> void:
     if is_instance_valid(collision.collider) && collision.collider.has_method("apply_damage"):
         collision.collider.apply_damage(1)
-        var root : Spatial = Utils.get_scene_root() as Spatial
-        var explosion : Particles = preload("res://src/Explosion/SmallExplosion.tscn").instance()
-        explosion.global_transform = global_transform
-        explosion.emitting = true
-        root.add_child(explosion)
+    var root : Spatial = Utils.get_scene_root() as Spatial
+    var explosion : Particles = preload("res://src/Explosion/SmallExplosion.tscn").instance()
+    explosion.global_transform = global_transform
+    explosion.emitting = true
+    root.add_child(explosion)
     _destroy()
 
 func _destroy():

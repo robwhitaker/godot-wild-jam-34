@@ -11,7 +11,7 @@ func _ready():
     pass
 
 
-func _process(delta):
+func _physics_process(delta):
     translation.z += VELOCITY*delta;
     print(translation.z)
     if (translation.z > 0):

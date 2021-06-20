@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Material.material" type="Material" id=1]
+[ext_resource path="res://Blender Imports/Material.material" type="Material" id=1]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube"
