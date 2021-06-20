@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Waves/cargoPath.gd" type="Script" id=2]
+[ext_resource path="res://src/WaveSpawner.gd" type="Script" id=3]
+[ext_resource path="res://src/Enemies/cargoship.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Curve3D" id=2]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -3.16159, 0, 124.867, 0, 0, 0, 0, 0, 0, -8.28048, 0, 99.7844, 0, 0, 0, 0, 0, 0, 10.6595, 0, 61.3927, 0, 0, 0, 0, 0, 0, 8.10001, -1.52588e-05, -3.10553 ),
+"tilts": PoolRealArray( 0, 0, 0, 0 )
+}
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 680.964, 1 )
+
+[node name="WaveSpawner" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -217.183 )
+script = ExtResource( 3 )
+
+[node name="cargoPath" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -220.808 )
+curve = SubResource( 2 )
+
+[node name="PathFollow" type="PathFollow" parent="cargoPath"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.16159, 0, 124.867 )
+rotation_mode = 0
+script = ExtResource( 2 )
+
+[node name="cargoship" parent="cargoPath/PathFollow" groups=[
+"Enemy",
+] instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.16159, 0, 18.9741 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 23.092, 0, 0, 0, 1, 0, 0, 0, 1116.97, 0.480057, 109.313, -228.392 )
+shape = SubResource( 3 )
