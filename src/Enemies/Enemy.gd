@@ -11,6 +11,7 @@ var cooldown := 0.0
 
 onready var animation_player := $AnimationPlayer as AnimationPlayer
 onready var snoot := $Markers/Snoot as Spatial
+onready var audio_player := $AudioStreamPlayer3D as AudioStreamPlayer3D
 onready var camera := get_viewport().get_camera()
 
 func _process(delta):
@@ -36,6 +37,8 @@ func _process(delta):
             projectile.speed = 30.0
             projectile.global_transform = snoot.global_transform
             Utils.get_scene_root().add_child(projectile)
+            # Play laser sound
+            audio_player.play()
             cooldown = attack_cooldown
 
 func apply_damage(dmg : float) -> void:

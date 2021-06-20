@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Player/reticle.png" type="Texture" id=2]
 [ext_resource path="res://src/Player/playership.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Player/cannon.wav" type="AudioStream" id=4]
+[ext_resource path="res://src/Player/small-explosion.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 
@@ -54,7 +56,6 @@ extents = Vector3( 4.3407, 4.09615, 6.35821 )
 [node name="Player" type="KinematicBody" groups=[
 "Player",
 ]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
@@ -123,3 +124,14 @@ collision_mask = 64
 [node name="CollisionShape" type="CollisionShape" parent="CarrotCatcher"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.672503 )
 shape = SubResource( 4 )
+
+[node name="Audio" type="Spatial" parent="."]
+
+[node name="Cannon" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 4 )
+volume_db = -5.0
+
+[node name="Damage" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 5 )
+volume_db = 1.209
+pitch_scale = 0.53

@@ -41,6 +41,9 @@ onready var ship_front := $Markers/ShipFront as Spatial
 onready var projectile_spawn_left := $Markers/ProjectileSpawnLeft
 onready var projectile_spawn_right := $Markers/ProjectileSpawnRight
 
+onready var cannon_sfx := $Audio/Cannon as AudioStreamPlayer
+onready var damage_sfx := $Audio/Damage as AudioStreamPlayer
+
 onready var reticle := $Reticle as TextureRect
 onready var animation_player := $AnimationPlayer
 onready var camera := get_viewport().get_camera()
@@ -155,6 +158,9 @@ func _process(delta):
         explosion.emitting = true
         projectile_spawn.add_child(explosion)
 
+        # Play the cannon sound
+        cannon_sfx.play()
+
         # Spawn a projectile
         var projectile := preload("res://src/Projectile/Cannonball.tscn").instance()
         projectile.direction = direction_to_reticle
@@ -242,6 +248,7 @@ func apply_damage(dmg : float) -> void:
     hp -= dmg
     Utils.emit_signal("player_hp_changed", MAX_HP, old_hp, hp)
     camera.shake()
+    damage_sfx.play()
     if hp <= 0.0:
         var explosion : Particles = preload("res://src/Explosion/Explosion.tscn").instance()
         explosion.global_transform = global_transform

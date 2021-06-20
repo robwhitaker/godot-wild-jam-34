@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Blender Imports/Material.material" type="Material" id=1]
 [ext_resource path="res://src/Enemies/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://src/Enemies/laser.wav" type="AudioStream" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube"
@@ -58,3 +59,8 @@ anims/Shake = SubResource( 3 )
 
 [node name="Snoot" type="Spatial" parent="Markers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.36173 )
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+unit_db = 1.86
+unit_size = 62.5

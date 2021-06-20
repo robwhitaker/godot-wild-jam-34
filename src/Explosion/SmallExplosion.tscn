@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[sub_resource type="SpatialMaterial" id=11]
+[ext_resource path="res://src/Explosion/Explosion.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 params_blend_mode = 1
 
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.227723, 0.564356, 1 )
 colors = PoolColorArray( 1, 0.570312, 0.570312, 1, 0.90332, 0.375795, 0, 1, 0.28125, 0, 0, 1, 0, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 8 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
 [sub_resource type="Curve" id=4]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.12929, 0.0, 0, 0 ]
@@ -18,7 +20,7 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.12929, 0.0, 0, 0 
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=6]
 direction = Vector3( 1, 1, 0 )
 spread = 180.0
 gravity = Vector3( 0, 10, 0 )
@@ -32,19 +34,20 @@ angle_random = 1.0
 scale = 0.75
 scale_random = 0.89
 scale_curve = SubResource( 5 )
-color_ramp = SubResource( 9 )
+color_ramp = SubResource( 3 )
 
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="SmallExplosion" type="Particles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.7188 )
-material_override = SubResource( 11 )
+material_override = SubResource( 1 )
 emitting = false
 amount = 20
 lifetime = 0.15
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
-process_material = SubResource( 10 )
+process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 7 )
+script = ExtResource( 2 )
