@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/SpawnHandler.gd" type="Script" id=1]
 [ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Camera/Camera.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ProceduralSky" id=1]
 radiance_size = 0
@@ -22,15 +23,11 @@ fog_depth_begin = 75.0
 
 [node name="PlayerMoveCam" type="Spatial"]
 
-[node name="Camera" type="Camera" parent="."]
-current = true
-fov = 30.0
-size = 10.0
-near = 5.0
-far = 150.0
+[node name="Camera" parent="." instance=ExtResource( 3 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -38.3772 )
+is_invincible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )

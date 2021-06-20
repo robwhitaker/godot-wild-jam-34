@@ -48,6 +48,7 @@ enum {
 }
 
 func _ready() -> void:
+    # Connect signals
     var _e
 
     _e = vis_notif_left.connect("camera_exited", self, "_camera_exited_left")
@@ -63,6 +64,11 @@ func _ready() -> void:
     _e = vis_notif_bottom.connect("camera_entered", self, "_camera_entered_bottom")
 
     _e = hurtbox.connect("body_entered", self, "_body_entered_hurtbox")
+
+    # Reset things that can get screwed up in the editor by
+    # animation players
+    is_invincible = false
+    $ship.set_visible(true)
 
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -223,6 +229,7 @@ func apply_damage(dmg : float) -> void:
         return
 
     hp -= dmg
+    camera.shake()
     if hp <= 0.0:
         var explosion : Particles = preload("res://src/Explosion/Explosion.tscn").instance()
         explosion.global_transform = global_transform

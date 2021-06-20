@@ -51,9 +51,11 @@ extents = Vector3( 1.69796, 0.874275, 2.82821 )
 [node name="Player" type="KinematicBody" groups=[
 "Player",
 ]]
+transform = Transform( 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
+is_invincible = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
