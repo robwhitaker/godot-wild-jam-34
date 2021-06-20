@@ -1,10 +1,52 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://src/Player/reticle.png" type="Texture" id=2]
 [ext_resource path="res://src/Player/playership.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Shake"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 3,
+"values": [ Vector3( 0, 0, -15 ), Vector3( 0, 0, 15 ), Vector3( 0, 0, -15 ), Vector3( 0, 0, 15 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ship:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false, true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:is_invincible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1.69796, 0.874275, 2.82821 )
 
 [node name="Player" type="KinematicBody" groups=[
 "Player",
@@ -57,3 +99,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05523, -0.333231, -4.47597 
 
 [node name="ProjectileSpawnRight" type="Spatial" parent="Markers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02746, -0.333231, -4.47597 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Shake = SubResource( 2 )
+
+[node name="Hurtbox" type="Area" parent="."]
+collision_layer = 32
+collision_mask = 12
+
+[node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.044528, -0.470995 )
+shape = SubResource( 3 )

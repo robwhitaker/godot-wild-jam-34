@@ -9,6 +9,9 @@ const DEFAULT_RETICLE_Z := -75.0
 const RETICLE_SPEED_MOD := 0.35
 const GOAL_DISTANCE_FROM_RETICLE := 200.0
 
+var hp := 5.0
+export var is_invincible := false # export for animation player
+
 var velocity := Vector3.ZERO
 
 var move_left_mod := 1.0
@@ -29,10 +32,14 @@ onready var vis_notif_right := $VisibilityNotifiers/Right as VisibilityNotifier
 onready var vis_notif_top := $VisibilityNotifiers/Top as VisibilityNotifier
 onready var vis_notif_bottom := $VisibilityNotifiers/Bottom as VisibilityNotifier
 
+onready var hurtbox := $Hurtbox as Area
+
 onready var ship_front := $Markers/ShipFront as Spatial
 onready var projectile_spawn_left := $Markers/ProjectileSpawnLeft
 onready var projectile_spawn_right := $Markers/ProjectileSpawnRight
+
 onready var reticle := $Reticle as TextureRect
+onready var animation_player := $AnimationPlayer
 onready var camera := get_viewport().get_camera()
 
 enum {
@@ -42,6 +49,7 @@ enum {
 
 func _ready() -> void:
     var _e
+
     _e = vis_notif_left.connect("camera_exited", self, "_camera_exited_left")
     _e = vis_notif_left.connect("camera_entered", self, "_camera_entered_left")
 
@@ -53,6 +61,8 @@ func _ready() -> void:
 
     _e = vis_notif_bottom.connect("camera_exited", self, "_camera_exited_bottom")
     _e = vis_notif_bottom.connect("camera_entered", self, "_camera_entered_bottom")
+
+    _e = hurtbox.connect("body_entered", self, "_body_entered_hurtbox")
 
     Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -189,6 +199,9 @@ func _camera_entered_bottom(_camera : Camera) -> void:
 func _camera_exited_bottom(_camera : Camera) -> void:
     move_bottom_mod = 0.0
 
+func _body_entered_hurtbox(_body : Node) -> void:
+    apply_damage(1.0)
+
 # Event handlers
 
 func _input(event):
@@ -199,3 +212,20 @@ func _input(event):
         shooting = true
     elif event.is_action_released("Shoot"):
         shooting = false
+
+# External functions
+
+func apply_damage(dmg : float) -> void:
+    if is_invincible:
+        return
+
+    hp -= dmg
+    if hp <= 0.0:
+        var explosion : Particles = preload("res://src/Explosion/Explosion.tscn").instance()
+        explosion.global_transform = global_transform
+        explosion.emitting = true
+        owner.add_child(explosion)
+        queue_free()
+    else:
+        # Animation applies invincibility until it is over
+        animation_player.play("Shake")
