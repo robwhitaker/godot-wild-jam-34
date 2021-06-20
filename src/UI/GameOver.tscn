@@ -13,6 +13,8 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 1 )
 
@@ -20,34 +22,48 @@ font_data = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 3 )
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 134.0
-margin_top = 63.0
-margin_right = 942.0
-margin_bottom = 277.0
+[node name="CenterContainer" type="CenterContainer" parent="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/CenterContainer"]
+margin_left = 112.0
+margin_right = 912.0
+margin_bottom = 900.0
+custom_constants/separation = 700
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect/CenterContainer/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 800, 100 )
 custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]You died! try again?[/center]"
 text = "You died! try again?"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
-margin_left = 198.634
-margin_top = 376.25
-margin_right = 876.634
-margin_bottom = 540.25
+[node name="RichTextLabel2" type="RichTextLabel" parent="TextureRect/CenterContainer/VBoxContainer"]
+margin_top = 800.0
+margin_right = 800.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 600, 100 )
 custom_fonts/normal_font = SubResource( 2 )
-text = "
-
-space for back to title!
-"
+bbcode_enabled = true
+bbcode_text = "[center]space for back to title![/center]"
+text = "space for back to title!"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
