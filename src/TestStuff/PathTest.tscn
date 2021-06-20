@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/SpawnHandler.gd" type="Script" id=1]
 [ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blender Imports/skybox.hdr" type="Texture" id=3]
 [ext_resource path="res://src/Camera/Camera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/UI/UI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Camera/speedline.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 3 )
@@ -53,6 +54,23 @@ transform = Transform( 32.77, 0, 0, 0, 26.6211, 0, 0, 0, 1, 0, 0, -10 )
 shape = SubResource( 4 )
 
 [node name="UI" parent="." instance=ExtResource( 5 )]
+
+[node name="Path7" parent="." instance=ExtResource( 6 )]
+
+[node name="Path11" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0 )
+
+[node name="Path12" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0 )
+
+[node name="Path8" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 0 )
+
+[node name="Path9" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -70, -20, 0 )
+
+[node name="Path10" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 20, 0 )
 
 [connection signal="area_exited" from="SpawnHandler/spawnEntrance" to="SpawnHandler" method="_on_spawnEntrance_area_exited"]
 [connection signal="area_entered" from="ActivationArea" to="SpawnHandler" method="_on_ActivationArea_area_entered"]

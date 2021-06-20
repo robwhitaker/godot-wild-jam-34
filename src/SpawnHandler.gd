@@ -35,7 +35,8 @@ func _on_spawnEntrance_area_exited(_area):
         currentWave += 1;
         spawnWave(currentWave)
     else:
-        print("You win!")
+        currentWave = 0;
+        spawnWave(currentWave)
 
 
 func _on_ActivationArea_area_entered(area):
