@@ -9,7 +9,9 @@ const DEFAULT_RETICLE_Z := -75.0
 const RETICLE_SPEED_MOD := 0.35
 const GOAL_DISTANCE_FROM_RETICLE := 200.0
 
-var hp := 5.0
+const MAX_HP := 5.0
+
+var hp := MAX_HP
 export var is_invincible := false # export for animation player
 
 var velocity := Vector3.ZERO
@@ -228,7 +230,11 @@ func apply_damage(dmg : float) -> void:
     if is_invincible:
         return
 
+    is_invincible = true
+
+    var old_hp := hp
     hp -= dmg
+    Utils.emit_signal("player_hp_changed", MAX_HP, old_hp, hp)
     camera.shake()
     if hp <= 0.0:
         var explosion : Particles = preload("res://src/Explosion/Explosion.tscn").instance()

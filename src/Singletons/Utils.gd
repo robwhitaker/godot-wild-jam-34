@@ -1,5 +1,7 @@
 extends Node
 
+signal player_hp_changed(max_hp, old_hp, new_hp)
+
 var player : KinematicBody setget set_player, get_player
 
 func set_player(new_player : KinematicBody) -> void:
