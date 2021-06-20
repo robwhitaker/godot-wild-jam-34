@@ -1,38 +1,19 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/EnemyGo.gd" type="Script" id=1]
 [ext_resource path="res://src/Enemies/rock00.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/WaveSpawner.gd" type="Script" id=3]
+[ext_resource path="res://src/WaveMover.gd" type="Script" id=3]
 [ext_resource path="res://src/Enemies/enemyship00.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Enemies/rock01.tscn" type="PackedScene" id=5]
 
-[sub_resource type="Curve3D" id=1]
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -18.0122, 1.01209, 57.8104, 0, 0, 0, 0, 0, 0, -8.60112, 8.50608, 73.828, 0, 0, 0, 0, 0, 0, 18.296, 7.86548, 62.6853, 0, 0, 0, 0, 0, 0, 11.6152, -3.86771, 71.7388, 0, 0, 0, 0, 0, 0, -3.0242, -6.13334, 59.2032, 0, 0, 0, 0, 0, 0, -19.9292, -7.00473, 57.8104, 0, 0, 0, 0, 0, 0, -18.0122, 1.01209, 57.8104 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 1.50961 )
 
 [node name="WaveSpawner" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -217.183 )
 script = ExtResource( 3 )
 
-[node name="Path" type="Path" parent="."]
-curve = SubResource( 1 )
-
-[node name="PathFollow" type="PathFollow" parent="Path"]
-transform = Transform( 0.862193, -0.18951, 0.469796, 0, 0.927389, 0.374098, -0.506579, -0.322545, 0.799589, -18.0122, 1.01209, 57.8104 )
-rotation_mode = 1
-script = ExtResource( 1 )
-
-[node name="enemyship00" parent="Path/PathFollow" instance=ExtResource( 4 )]
-
-[node name="rock01" parent="." instance=ExtResource( 2 )]
-transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 63.3743 )
-
 [node name="rock02" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.814733, -0.579836, 0, 0.561067, 0.78836, 0.252373, -0.146335, -0.205617, 0.96763, -29.6451, 0, 100.053 )
+transform = Transform( 0.814733, -0.579836, 0, 0.561067, 0.78836, 0.252373, -0.146335, -0.205617, 0.96763, 5.27241, 1.78619, 48.8577 )
 
 [node name="rock03" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1.75473, 0, 1.18782, 0, 1, 0, -4.61584, 0, 6.81885, 21.3075, 0, 100.053 )
@@ -41,19 +22,34 @@ transform = Transform( 1.75473, 0, 1.18782, 0, 1, 0, -4.61584, 0, 6.81885, 21.30
 transform = Transform( 1.75473, 0, 1.18782, 0, 1, 0, -4.61584, 0, 6.81885, -16.5124, 0, 2.80196 )
 
 [node name="rock06" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1.24696, -2.27919e-09, 1.91591, 4.31359e-09, 1, 2.31835e-09, -4.77809, 3.07976e-10, 6.65108, 6.17945, 0, -30.6956 )
+transform = Transform( 1.24696, -2.27919e-09, 1.91591, 4.31359e-09, 1, 2.31835e-09, -4.77809, 3.07976e-10, 6.65108, -5.40067, 0, -30.6956 )
 
 [node name="rock04" parent="." instance=ExtResource( 2 )]
 transform = Transform( 0.99745, 0, -0.0713756, 0, 1, 0, 0.0713756, 0, 0.99745, 0.926331, 0, 126.919 )
 
 [node name="enemyship00" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3463, 0, 29.1898 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04245, 0, -65.7768 )
 
 [node name="enemyship01" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.122, -3.08179, 31.874 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.03506, -3.08179, 31.874 )
 
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 9.49901, 0, 0, 0, 1, 0, 0, 0, 79.552, 0, 0, 32.2034 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
+
+[node name="rock07" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3884, 81.1648, 242.737 )
+
+[node name="rock00" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6281, -3.78133, -77.2343 )
+
+[node name="rock08" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.56709, 160.652, 212.008 )
+
+[node name="rock09" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 95.5086, 101.207, 201.671 )
+
+[node name="rock10" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 269.947, 64.7514, 433.773 )
